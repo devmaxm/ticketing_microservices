@@ -1,6 +1,5 @@
 import {NextFunction, Request, Response} from "express";
 import ApiError from "../errors/api.error";
-import jwt from "jsonwebtoken";
 
 
 interface UserPayload {

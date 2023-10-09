@@ -9,11 +9,11 @@ export async function signInController (req: Request, res: Response, next: NextF
     const {email, password} = req.body
     const user = await User.findOne({email}).exec() as IUser | null
     if (!user) {
-        return next(new ApiError('Invalid user data', 500))
+        return next(new ApiError('Invalid user data', 400))
     }
     const isCorrectPassword = await Password.compare(user.password, password)
     if (!isCorrectPassword) {
-        return next(new ApiError('Invalid user data', 500))
+        return next(new ApiError('Invalid user data', 400))
     }
     const jwt_access = jwt.sign(
         {

@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose'
 import {json} from 'body-parser'
 import errorHandlerMiddleware from "./middlewares/error-handler.middleware";
 import cookieSession from 'cookie-session'
