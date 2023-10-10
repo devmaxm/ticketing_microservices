@@ -1,11 +1,10 @@
 import {Router} from 'express'
-import {requireAuthMiddleware} from "../middlewares/require-auth.middleware";
-import {currentUserMiddleware} from "../middlewares/current-user.middleware";
+import {requireAuthMiddleware, currentUserMiddleware} from "@ticketing-services/common";
 
 const router = Router()
 
 router.get('/api/users/currentuser', currentUserMiddleware, requireAuthMiddleware, (req, res) => {
-    res.status(200).json({user: req.user})
+    res.status(200).json({currentUser: req.user})
 })
 
 export {router as currentUserRouter}

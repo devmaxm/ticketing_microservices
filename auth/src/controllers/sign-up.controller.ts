@@ -1,12 +1,9 @@
 import {NextFunction, Request, Response} from "express";
-import {validationResult} from "express-validator";
 import jwt from 'jsonwebtoken'
 
-
-import RequestValidationError from "../errors/request-validation.error";
+import {ApiError} from "@ticketing-services/common";
 
 import {User} from '../models/user'
-import ApiError from "../errors/api.error";
 
 
 export async function signUpController(req: Request, res: Response, next: NextFunction) {

@@ -1,7 +1,7 @@
 import {Router} from 'express'
 import {body} from 'express-validator'
 import {signInController} from "../controllers/sign-in.controller";
-import {requestValidateMiddleware} from "../middlewares/request-validate.middleware";
+import {requestValidateMiddleware} from "@ticketing-services/common";
 
 const router = Router()
 

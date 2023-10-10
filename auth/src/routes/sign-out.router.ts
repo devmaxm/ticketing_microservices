@@ -1,6 +1,5 @@
 import {Router} from 'express'
-import {requireAuthMiddleware} from "../middlewares/require-auth.middleware";
-import {currentUserMiddleware} from "../middlewares/current-user.middleware";
+import {requireAuthMiddleware, currentUserMiddleware} from "@ticketing-services/common";
 
 const router = Router()
 

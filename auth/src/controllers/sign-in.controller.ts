@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {User} from "../models/user";
 import {IUser} from "../interfaces/user.interface";
-import ApiError from "../errors/api.error";
+import {ApiError} from "@ticketing-services/common";
 import {Password} from "../services/password";
 import jwt from "jsonwebtoken";
 
