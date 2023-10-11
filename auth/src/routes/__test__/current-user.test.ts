@@ -9,8 +9,8 @@ it('should success if valid cookie', async () => {
         .set('Cookie', cookie)
         .expect(200)
 
-    expect(response.body.user.id).toBeDefined()
-    expect(response.body.user.email).toEqual("test@test.com")
+    expect(response.body.currentUser.id).toBeDefined()
+    expect(response.body.currentUser.email).toEqual("test@test.com")
 
 })
 
