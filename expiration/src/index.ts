@@ -1,20 +1,8 @@
-import mongoose from 'mongoose'
 import app from "./app";
 import {natsWrapper} from "./nats-wrapper";
-import {randomBytes} from "crypto";
-import { OrderCreatedListener } from './events/listener/order-created.listener';
-import { OrderUpdatedListener } from './events/listener/order-updated.listener';
-
-
-
+import { OrderCreatedListener } from './events/listeners/order-created.listener';
 
 async function bootstrap() {
-    if (!process.env.MONGO_URI) {
-        throw new Error("MONGO_URI must be defined")
-    }
-    if (!process.env.JWT_KEY) {
-        throw new Error("JWT_KEY must be defined")
-    }
     if (!process.env.NATS_CLUSTER_ID) {
         throw new Error("NATS_CLUSTER_ID must be defined")
     }
@@ -39,9 +27,6 @@ async function bootstrap() {
         process.on('SIGTERM', ()=> natsWrapper.client.close())
 
         new OrderCreatedListener(natsWrapper.client).listen()
-        new OrderUpdatedListener(natsWrapper.client).listen()
-
-        await mongoose.connect(process.env.MONGO_URI as string)
     } catch (err) {
         console.error(err)
     }

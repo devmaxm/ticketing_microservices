@@ -2,6 +2,8 @@ import {NextFunction, Request, Response, Router} from "express";
 import {Ticket, TicketModel} from "../models/ticket";
 import {body} from "express-validator";
 import {ApiError, NotFoundError, requestValidateMiddleware, requireAuthMiddleware} from "@ticketing-services/common";
+import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated.publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = Router()
 
@@ -15,6 +17,10 @@ router.put('/api/tickets/:id',[
     if (!ticket) {
         return next(new NotFoundError('Ticket not found'))
     }
+    if (ticket.orderId) {
+        next(new ApiError('Cannot edit reserved ticket', 400))
+    }
+
     if (ticket.userId !== req.user!.id) {
         return next(new ApiError('Unauthorized', 401))
     }
@@ -23,6 +29,14 @@ router.put('/api/tickets/:id',[
         price
     })
     await ticket.save()
+
+    new TicketUpdatedPublisher(natsWrapper.client).publish({
+        id: ticket.id,
+        title: ticket.title,
+        price: ticket.price,
+        userId: req.user!.id,
+        version: ticket.version
+    })
 
     res.status(200).json(ticket)
 })

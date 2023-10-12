@@ -1,13 +1,12 @@
 import {NextFunction, Request, Response} from "express";
 import {User} from "../models/user";
-import {IUser} from "../interfaces/user.interface";
 import {ApiError} from "@ticketing-services/common";
 import {Password} from "../services/password";
 import jwt from "jsonwebtoken";
 
 export async function signInController (req: Request, res: Response, next: NextFunction) {
     const {email, password} = req.body
-    const user = await User.findOne({email}).exec() as IUser | null
+    const user = await User.findOne({email}).exec()
     if (!user) {
         return next(new ApiError('Invalid user data', 400))
     }
