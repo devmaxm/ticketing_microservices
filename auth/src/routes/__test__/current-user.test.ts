@@ -19,5 +19,5 @@ it('should return null if no cookies', async () => {
         .get('/api/users/currentuser')
         .expect(200)
 
-    expect(response.body.errors.currentUser).toEqual(null)
+    expect(response.body.currentUser).toEqual(null)
 })
