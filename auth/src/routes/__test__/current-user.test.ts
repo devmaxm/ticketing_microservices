@@ -14,10 +14,10 @@ it('should success if valid cookie', async () => {
 
 })
 
-it('should fail if no cookies', async () => {
+it('should return null if no cookie', async () => {
     const response = await request(app)
         .get('/api/users/currentuser')
         .expect(401)
 
-    expect(response.body.errors[0].message).toEqual("Unauthorized")
+    expect(response.body.currentUser).toEqual(null)
 })
