@@ -3,8 +3,8 @@ import {requireAuthMiddleware, currentUserMiddleware} from "@ticketing-services/
 
 const router = Router()
 
-router.get('/api/users/currentuser', currentUserMiddleware, requireAuthMiddleware, (req, res) => {
-    res.status(200).json({currentUser: req.user})
+router.get('/api/users/currentuser', currentUserMiddleware, (req, res) => {
+    res.status(200).json({currentUser: req.user || null})
 })
 
 export {router as currentUserRouter}

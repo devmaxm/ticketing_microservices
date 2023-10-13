@@ -8,8 +8,9 @@ export class TicketUpdatedListener extends Listener<ITicketUpdatedEvent> {
     subject: Subjects.TicketUpdated = Subjects.TicketUpdated;
 
     async onMessage(data: ITicketUpdatedEvent["data"], message: Message): Promise<void> {
+        // console.log(data)
         const ticket = await Ticket.findByEvent({ id: data.id, version: data.version })
-
+        console.log(ticket)
         if (!ticket) {
             throw Error('Ticket not found')
         }

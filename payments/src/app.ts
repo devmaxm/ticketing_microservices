@@ -2,6 +2,7 @@ import express from 'express';
 import {json} from 'body-parser'
 import {currentUserMiddleware, errorHandlerMiddleware, NotFoundError} from "@ticketing-services/common";
 import cookieSession from 'cookie-session'
+import { router } from './routes/create-payment.router';
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.use(cookieSession({
 app.use(currentUserMiddleware)
 
 // routes
+app.use(router)
 app.all('*', async (req, res, next) => {
     next(new NotFoundError())
 })
