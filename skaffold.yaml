@@ -13,8 +13,11 @@ deploy:
       - ./infra/k8s/expiration-depl.yaml
       - ./infra/k8s/expiration-redis-depl.yaml
 
-      - ./infra/k8s/auth-depl.yaml
-      - ./infra/k8s/auth-mongo-depl.yaml
+      - ./infra/k8s/payments-depl.yaml
+      - ./infra/k8s/payments-mongo-depl.yaml
+
+      # - ./infra/k8s/auth-depl.yaml
+      # - ./infra/k8s/auth-mongo-depl.yaml
 build:
   artifacts:
 #    - image: imnotsmarttt/ticket-client
@@ -25,14 +28,14 @@ build:
 #        manual:
 #          - src: '**/*.js'
 #            dest: .
-    - image: imnotsmarttt/ticket-auth
-      context: auth
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
+    # - image: imnotsmarttt/ticket-auth
+    #   context: auth
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: 'src/**/*.ts'
+    #         dest: .
     - image: imnotsmarttt/ticket-tickets
       context: tickets
       docker:
@@ -51,6 +54,14 @@ build:
             dest: .
     - image: imnotsmarttt/ticket-expiration
       context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: imnotsmarttt/ticket-payments
+      context: payments
       docker:
         dockerfile: Dockerfile
       sync:
