@@ -14,7 +14,11 @@ it('should success if valid cookie', async () => {
 
 })
 
+<<<<<<< HEAD
 it('should return null if no cookies', async () => {
+=======
+it('should return null if no cookie', async () => {
+>>>>>>> e35bbe8f3edc703694e646212121a93b44b7a937
     const response = await request(app)
         .get('/api/users/currentuser')
         .expect(200)
